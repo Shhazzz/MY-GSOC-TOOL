@@ -507,6 +507,13 @@ function renderBlogPosts(posts) {
                     ${post.readTime ? `<span>|</span> <span><i class="fas fa-clock mr-1"></i> ${post.readTime}</span>` : ''}
                 </div>
                 <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">${post.excerpt}</p>
+
+                ${post.url ? `
+                    <a href="${post.url}" target="_blank" rel="noopener noreferrer"
+                       class="inline-block mt-3 text-sm font-semibold text-red-600 hover:underline">
+                       Read Blog →
+                    </a>
+                ` : ''}
             </div>
         `).join('');
     } else {
