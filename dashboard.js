@@ -510,6 +510,7 @@ function renderBlogPosts(posts) {
 
                 ${post.url ? `
                     <a href="${post.url}" target="_blank" rel="noopener noreferrer"
+                        onclick="event.stopPropagation();"
                        class="inline-block mt-3 text-sm font-semibold text-red-600 hover:underline">
                        Read Blog →
                     </a>
