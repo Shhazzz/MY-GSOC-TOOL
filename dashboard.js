@@ -500,7 +500,7 @@ function renderBlogPosts(posts) {
 
     if (posts && posts.length > 0) {
         blogList.innerHTML = posts.map((post, index) => `
-            <div class="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-gray-700/50 group cursor-pointer" onclick="${post.content ? `openBlogModal(${index})` : `window.open('${post.url}', '_blank')`}">
+            <div class="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-gray-700/50 group cursor-pointer" onclick="window.open('${post.url}', '_blank')">
                 <h3 class="font-semibold text-lg text-gray-800 dark:text-white group-hover:text-primary transition-colors mb-2">${post.title}</h3>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mb-3 flex items-center gap-2">
                     <span><i class="fas fa-calendar mr-1"></i> ${formatDate(post.date)}</span>
