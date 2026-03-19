@@ -534,8 +534,17 @@ function openBlogModal(index) {
 
     title.textContent = post.title;
     date.innerHTML = `<i class="fas fa-calendar mr-1"></i> ${formatDate(post.date)}`;
-    content.innerHTML = post.content || `<p>${post.excerpt}</p><p class="italic text-gray-500 mt-4">(No full content available)</p>`;
-
+    content.innerHTML = post.content 
+      ? post.content 
+      : `
+          <p>${post.excerpt}</p>
+          ${post.url ? `
+            <a href="${post.url}" target="_blank" 
+               class="inline-block mt-4 text-red-600 font-semibold hover:underline">
+               Read Full Blog →
+            </a>
+          ` : ''}
+        `;
     modal.classList.remove('hidden');
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
