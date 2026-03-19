@@ -19,11 +19,11 @@
     ]
   },
   "slack": {
-    "workspaceUrl": "https://your-org.slack.com/join/shared_invite/xxx",
+    "workspaceUrl": "https://owasp.slack.com/archives/C2FF0UVHU",
     "channels": [
-      "general",
-      "gsoc-2024",
-      "your-project-channel"
+      "project-blt",
+      "gsoc",
+      "blt-gsoc26-shaz"
     ]
   }
 }
