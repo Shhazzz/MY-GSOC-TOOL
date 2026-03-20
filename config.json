@@ -16,7 +16,7 @@
     "repositories": [
       "https://github.com/OWASP-BLT/BLT",
       "https://github.com/OWASP-BLT/BLT-GSOC",
-      "https://github.com/OWASP-BLT/BLT-Design-Contest",
+      "https://github.com/OWASP-BLT/BLT-Design-Contest"
     ]
   },
   "slack": {
