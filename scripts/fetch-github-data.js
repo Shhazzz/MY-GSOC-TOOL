@@ -14,8 +14,8 @@ if (fs.existsSync(envPath)) {
                 let value = match[2] || '';
                 // Remove quotes
                 if (value.length > 0 &&
-                    (value.startsWith('"') && value.endsWith('"')) ||
-                    (value.startsWith("'") && value.endsWith("'"))) {
+                    ((value.startsWith('"') && value.endsWith('"')) ||
+                    (value.startsWith("'") && value.endsWith("'")))) {
                     value = value.slice(1, -1);
                 }
                 process.env[key] = value;
@@ -41,7 +41,6 @@ const githubUrl = config.student?.github || '';
 const username = githubUrl.split('/').pop() || 'example-user';
 
 console.log(`Fetching data for user: ${username}`);
-console.log("USERNAME:", username);
 
 // Helper to extract owner and repo from URL
 function getRepoDetails(url) {
@@ -81,9 +80,6 @@ function makeRequest(path) {
             res.on('data', (chunk) => data += chunk);
             res.on('end', () => {
                 try {
-                    console.log("API PATH:", path);
-                    console.log("STATUS:", res.statusCode);
-                    
                     if (res.statusCode !== 200) {
                         // Handle 404 or other errors gracefully for individual requests
                         if (res.statusCode === 404) {
@@ -162,17 +158,17 @@ async function fetchData() {
 
             try {
                 // Fetch Pull Requests (Only merged)
-                const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>2025-06-01`;
+                const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>${dateStr}`;
                 const prRes = await makeRequest(`/search/issues?q=${encodeURIComponent(prQuery)}`);
                 const prCount = prRes.data?.total_count || 0;
 
                 // Fetch Issues
-                const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>2025-06-01`;
+                const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>${dateStr}`;
                 const issueRes = await makeRequest(`/search/issues?q=${encodeURIComponent(issueQuery)}`);
                 const issueCount = issueRes.data?.total_count || 0;
 
                 // Fetch Reviews (Exclude own PRs)
-                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>2025-06-01`;
+                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>${dateStr}`;
                 const reviewRes = await makeRequest(`/search/issues?q=${encodeURIComponent(reviewQuery)}`);
                 const reviewCount = reviewRes.data?.total_count || 0;
 
@@ -220,8 +216,7 @@ async function fetchData() {
                 totalStats.reviews += reviewCount;
 
             } catch (error) {
-                console.error(`❌ FULL ERROR for ${owner}/${repo}:`);
-                console.error(error);
+                console.error(`Error processing ${owner}/${repo}:`, error.message);
             }
         });
 
