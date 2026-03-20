@@ -219,7 +219,8 @@ async function fetchData() {
                 totalStats.reviews += reviewCount;
 
             } catch (error) {
-                console.error(`Error processing ${owner}/${repo}:`, error.message);
+                console.error(`❌ FULL ERROR for ${owner}/${repo}:`);
+                console.error(error);
             }
         });
 
