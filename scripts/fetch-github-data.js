@@ -5,7 +5,7 @@ const path = require('path');
 // Load environment variables if .env file exists
 const envPath = path.resolve(__dirname, '../.env');
 if (fs.existsSync(envPath)) {
-    try {
+    try {https://github.com/Shhazzz/MY-GSOC-TOOL/settings
         const fileContent = fs.readFileSync(envPath, 'utf8');
         fileContent.split('\n').forEach(line => {
             const match = line.match(/^\s*([^=]+?)\s*=\s*(.*)?\s*$/);
@@ -41,6 +41,7 @@ const githubUrl = config.student?.github || '';
 const username = githubUrl.split('/').pop() || 'example-user';
 
 console.log(`Fetching data for user: ${username}`);
+console.log("USERNAME:", username);
 
 // Helper to extract owner and repo from URL
 function getRepoDetails(url) {
