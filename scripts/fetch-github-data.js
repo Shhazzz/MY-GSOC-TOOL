@@ -162,17 +162,17 @@ async function fetchData() {
 
             try {
                 // Fetch Pull Requests (Only merged)
-                const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>${dateStr}`;
+                const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>2025-06-01`;
                 const prRes = await makeRequest(`/search/issues?q=${encodeURIComponent(prQuery)}`);
                 const prCount = prRes.data?.total_count || 0;
 
                 // Fetch Issues
-                const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>${dateStr}`;
+                const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>2025-06-01`;
                 const issueRes = await makeRequest(`/search/issues?q=${encodeURIComponent(issueQuery)}`);
                 const issueCount = issueRes.data?.total_count || 0;
 
                 // Fetch Reviews (Exclude own PRs)
-                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>${dateStr}`;
+                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>2025-06-01`;
                 const reviewRes = await makeRequest(`/search/issues?q=${encodeURIComponent(reviewQuery)}`);
                 const reviewCount = reviewRes.data?.total_count || 0;
 
