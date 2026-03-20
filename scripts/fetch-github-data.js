@@ -38,8 +38,14 @@ try {
 
 // Extract GitHub username from URL
 const githubUrl = config.student?.github || '';
-const username = githubUrl.replace(/\/$/, '').split('/').pop();
+const username = githubUrl
+  .trim()
+  .replace(/\/$/, '')
+  .replace('.git', '')
+  .split('/')
+  .pop();
 
+console.log("FINAL USERNAME:", `"${username}"`);
 console.log(`Fetching data for user: ${username}`);
 
 // Helper to extract owner and repo from URL
@@ -162,12 +168,14 @@ async function fetchData() {
                 console.log("PR QUERY:", prQuery);
                 const prRes = await makeRequest(`/search/issues?q=${encodeURIComponent(prQuery)}`);
                 const prCount = prRes.data?.total_count || 0;
+                console.log(`PR COUNT for ${owner}/${repo}:`, prCount);
 
                 // Fetch Issues
                 const issueQuery = `repo:${owner}/${repo} is:issue author:${username}`;
                 console.log("ISSUE QUERY:", issueQuery);                
                 const issueRes = await makeRequest(`/search/issues?q=${encodeURIComponent(issueQuery)}`);
                 const issueCount = issueRes.data?.total_count || 0;
+                console.log(`ISSUE COUNT for ${owner}/${repo}:`, issueCount);
 
                 // Fetch Reviews (Exclude own PRs)
                 const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username}`;
