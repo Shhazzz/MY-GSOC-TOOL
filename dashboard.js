@@ -128,19 +128,19 @@ async function loadGitHubData(config) {
 
         try {
             // Fetch Pull Requests (Only merged)
-            const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>${dateStr}`;
+            const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>=2025-06-01`;
             const prResponse = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(prQuery)}`);
             const prData = await prResponse.json();
             const prCount = prData.total_count || 0;
 
             // Fetch Issues
-            const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>${dateStr}`;
+            const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>=2025-06-01`;
             const issueResponse = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(issueQuery)}`);
             const issueData = await issueResponse.json();
             const issueCount = issueData.total_count || 0;
 
             // Fetch Reviews (Exclude own PRs)
-            const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>${dateStr}`;
+            const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>=2025-06-01`;
             const reviewResponse = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(reviewQuery)}`);
             const reviewData = await reviewResponse.json();
             const reviewCount = reviewData.total_count || 0;
