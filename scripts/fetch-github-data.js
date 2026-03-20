@@ -80,6 +80,9 @@ function makeRequest(path) {
             res.on('data', (chunk) => data += chunk);
             res.on('end', () => {
                 try {
+                    console.log("API PATH:", path);
+                    console.log("STATUS:", res.statusCode);
+                    
                     if (res.statusCode !== 200) {
                         // Handle 404 or other errors gracefully for individual requests
                         if (res.statusCode === 404) {
