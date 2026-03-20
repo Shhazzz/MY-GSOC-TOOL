@@ -14,9 +14,9 @@
     "organization": "Your Organization",
     "timeline": "May 2026 - September 2026",
     "repositories": [
-      "OWASP-BLT/BLT",
-      "OWASP-BLT/BLT-GSOC",
-      "BLT-Design-Contest"
+      "https://github.com/OWASP-BLT/BLT",
+      "https://github.com/OWASP-BLT/BLT-GSOC",
+      "https://github.com/OWASP-BLT/BLT-Design-Contest"
     ]
   },
   "slack": {
