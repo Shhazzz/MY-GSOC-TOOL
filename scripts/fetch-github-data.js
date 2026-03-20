@@ -38,7 +38,7 @@ try {
 
 // Extract GitHub username from URL
 const githubUrl = config.student?.github || '';
-const username = githubUrl.split('/').pop() || 'example-user';
+const username = githubUrl.replace(/\/$/, '').split('/').pop();
 
 console.log(`Fetching data for user: ${username}`);
 
@@ -158,17 +158,20 @@ async function fetchData() {
 
             try {
                 // Fetch Pull Requests (Only merged)
-                const prQuery = `repo:${owner}/${repo} is:pr is:merged author:${username} created:>${dateStr}`;
+                const prQuery = `repo:${owner}/${repo} is:pr author:${username}`;
+                console.log("PR QUERY:", prQuery);
                 const prRes = await makeRequest(`/search/issues?q=${encodeURIComponent(prQuery)}`);
                 const prCount = prRes.data?.total_count || 0;
 
                 // Fetch Issues
-                const issueQuery = `repo:${owner}/${repo} is:issue author:${username} created:>${dateStr}`;
+                const issueQuery = `repo:${owner}/${repo} is:issue author:${username}`;
+                console.log("ISSUE QUERY:", issueQuery);                
                 const issueRes = await makeRequest(`/search/issues?q=${encodeURIComponent(issueQuery)}`);
                 const issueCount = issueRes.data?.total_count || 0;
 
                 // Fetch Reviews (Exclude own PRs)
-                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username} created:>${dateStr}`;
+                const reviewQuery = `repo:${owner}/${repo} is:pr reviewed-by:${username} -author:${username}`;
+                console.log("REVIEW QUERY:", reviewQuery);
                 const reviewRes = await makeRequest(`/search/issues?q=${encodeURIComponent(reviewQuery)}`);
                 const reviewCount = reviewRes.data?.total_count || 0;
 
