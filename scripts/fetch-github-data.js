@@ -70,9 +70,9 @@ function makeRequest(path) {
             }
         };
 
-        // Add Authorization header solely if token is present
-        if (process.env.GITHUB_TOKEN) {
-            options.headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
+        const token = process.env.GSOC_TOKEN;
+        if (token) {
+            options.headers['Authorization'] = `token ${token}`;
         }
 
         https.get(options, (res) => {
