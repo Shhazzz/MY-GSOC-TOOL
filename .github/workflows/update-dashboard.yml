@@ -36,6 +36,17 @@ jobs:
         run: |
           node scripts/fetch-github-data.js
 
+      - name: Commit and push updated data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add data/github-contributions.json
+
+          git diff --cached --quiet || git commit -m "Update GitHub contributions"
+
+          git push
+
   deploy-to-pages:
     needs: fetch-github-contributions
     runs-on: ubuntu-latest
