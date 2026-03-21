@@ -58,7 +58,7 @@
 </head>
 
 <body
-    class="bg-gray-200 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 font-sans transition-colors duration-200">
+    class="bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-800 dark:text-gray-100 font-sans transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header Section -->
         <header
@@ -187,7 +187,6 @@
                 <a id="blog-link" href="#"
                     class="hidden inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary w-full transition-colors duration-200"
                     target="_blank">
-                    
                     <i class="fas fa-external-link-alt mr-2"></i> View Full Blog
                 </a>
             </section>
@@ -246,8 +245,7 @@
     <script src="dashboard.js"></script>
 
     <!-- Blog Modal -->
-    <div id="blog-modal"
-        class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50 transition-opacity duration-300 backdrop-blur-sm">
+    <div id="blog-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" style="display:none;">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col transform transition-transform duration-300 scale-95 border border-gray-100 dark:border-gray-700"
             id="blog-modal-panel">
             <div
