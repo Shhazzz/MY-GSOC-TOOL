@@ -70,7 +70,7 @@ function makeRequest(path) {
             }
         };
 
-        const token = process.env.GSOC_TOKEN;
+        const token = process.env.GITHUB_TOKEN;
         if (token) {
             options.headers['Authorization'] = `token ${token}`;
         }
