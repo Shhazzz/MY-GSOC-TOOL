@@ -504,23 +504,28 @@ function renderMentorInfo(mentorData) {
 // Render blog posts
 function renderBlogPosts(posts) {
     const blogList = document.getElementById('blog-posts');
+    const blogLink = document.getElementById('blog-link');
 
-    // Store posts globally for modal access
+    // Store posts globally or in closure for access
     window.blogPostsData = posts;
 
     if (posts && posts.length > 0) {
         blogList.innerHTML = posts.map((post, index) => `
-            <div class="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-gray-700/50 group">
-                <h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-2">${post.title}</h3>
+            <div class="p-4 border border-gray-100 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow bg-white dark:bg-gray-700/50 group cursor-pointer" onclick="openBlogModal(${index})">
+                <h3 class="font-semibold text-lg text-gray-800 dark:text-white group-hover:text-primary transition-colors mb-2">${post.title}</h3>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mb-3 flex items-center gap-2">
                     <span><i class="fas fa-calendar mr-1"></i> ${formatDate(post.date)}</span>
                     ${post.readTime ? `<span>|</span> <span><i class="fas fa-clock mr-1"></i> ${post.readTime}</span>` : ''}
                 </div>
                 <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">${post.excerpt}</p>
-                <button onclick="openBlogModal(${index})"
-                    class="mt-4 w-full inline-flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
-                    <i class="fas fa-book-open mr-2"></i> Read Blog
-                </button>
+                
+                ${post.url ? `
+                    <a href="${post.url}" target="_blank" rel="noopener noreferrer"
+                       onclick="event.stopPropagation();"
+                       class="inline-block mt-3 text-sm font-semibold text-red-600 hover:underline">
+                       Read Blog →
+                    </a>
+                ` : ''}
             </div>
         `).join('');
     } else {
@@ -547,10 +552,18 @@ function openBlogModal(index) {
 
     title.textContent = post.title;
     date.innerHTML = `<i class="fas fa-calendar mr-1"></i> ${formatDate(post.date)}`;
-    content.innerHTML = post.content
-    ? post.content
-    : `<p>${escapeHTML(post.excerpt)}</p>
-       <p class="italic text-gray-500 mt-4">(No full content available)</p>`;
+   content.innerHTML = `
+        <p>${post.excerpt}</p>
+    
+        ${post.url ? `
+            <a href="${post.url}" target="_blank" rel="noopener noreferrer"
+               class="inline-block mt-4 px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition"
+               onclick="event.stopPropagation();">
+               Read Full Blog →
+            </a>
+        ` : `
+        `}
+    `;
 
     modal.style.display = "flex";
     previousBodyOverflow = document.body.style.overflow;
